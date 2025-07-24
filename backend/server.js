@@ -1,8 +1,9 @@
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const User = require('./models/User'); // Подключаем модель
+
+const app = express();
 
 // Подключение к базе данных MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/myNewDatabase', {
@@ -12,25 +13,27 @@ mongoose.connect('mongodb://127.0.0.1:27017/myNewDatabase', {
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log(err));
 
-// Мидлвар для обработки JSON в запросах
-app.use(bodyParser.json());
+// Мидлвар для обработки JSON (используй express.json())
+app.use(express.json());  // Это заменяет body-parser
 
-// Простая страница при GET запросе на /
+// Простая страница
 app.get('/', (req, res) => {
   res.send('Welcome to the registration platform!');
 });
 
-// Маршрут для регистрации
+// Маршрут регистрации
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body;  // req.body должно содержать данные
 
-  // Хешируем пароль
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Создаем нового пользователя
   const newUser = new User({
     username,
-    password: hashedPassword
+    password: hashedPassword,
   });
 
   try {

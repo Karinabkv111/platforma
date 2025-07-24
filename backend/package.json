@@ -3,6 +3,10 @@
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
+<<<<<<< HEAD
     "mongodb": "^8.0.12"
+=======
+    "mongodb": "^4.0.0"
+>>>>>>> 621f9f0 (Initial commit)
   }
 }

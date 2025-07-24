@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const User = require('./models/User'); // Импорт модели
+const User = require('./models/User');
 
 const app = express();
 
-// Подключение к MongoDB
+// 1. Добавляем middleware для парсинга JSON данных
+app.use(express.json());  // Эта строка позволяет серверу понимать JSON в теле запроса
+
+// 2. Подключение к MongoDB
 mongoose.connect('mongodb://localhost:27017/myNewDatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -15,12 +18,13 @@ mongoose.connect('mongodb://localhost:27017/myNewDatabase', {
   console.error('Error connecting to MongoDB:', err);
 });
 
-// Middleware для обработки JSON
-app.use(express.json());
-
-// Маршрут регистрации
+// 3. Маршрут для регистрации
 app.post('/register', (req, res) => {
-  const { name, age, email, password } = req.body;
+  const { name, age, email, password } = req.body;  // Теперь сервер будет правильно извлекать данные из req.body
+
+  if (!name || !age || !email || !password) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
 
   // Хеширование пароля
   bcrypt.hash(password, 10, (err, hashedPassword) => {
@@ -41,7 +45,7 @@ app.post('/register', (req, res) => {
   });
 });
 
-// Запуск сервера
+// 4. Запуск сервера
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });

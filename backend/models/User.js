@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Определяем схему пользователя
+// Определение схемы
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -21,7 +21,5 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Создаем модель на основе схемы
-const User = mongoose.model('User', userSchema);
-
+const User = mongoose.model('User', userSchema, 'users');  // Коллекция users
 module.exports = User;

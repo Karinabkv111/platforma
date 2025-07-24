@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Вход в аккаунт</h2>
+    <form id="loginForm" action="/login" method="POST">
+      <!-- Поле для ввода email -->
+      <label for="email">Электронная почта:</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        placeholder="Введите вашу почту" 
+        required 
+        autofocus 
+      />
+
+      <!-- Поле для ввода пароля -->
+      <label for="password">Пароль:</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        placeholder="Введите пароль" 
+        required 
+      />
+
+      <!-- Кнопка для отправки формы -->
+      <button type="submit">Войти</button>
+    </form>
+    
+    <!-- Ссылка на страницу регистрации -->
+    <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+  </div>
+
+  <!-- Подключение скрипта для обработки формы -->
+  <script src="script.js"></script>
+</body>
+</html>

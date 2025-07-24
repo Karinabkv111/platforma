@@ -62,7 +62,39 @@ app.post('/register', (req, res) => {
     .catch(err => res.status(500).json({ error: 'Error checking email' }));
 });
 
+// Маршрут для входа (POST /login)
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required' });
+  }
+
+  // Проверка, существует ли пользователь с таким email
+  User.findOne({ email })
+    .then(user => {
+      if (!user) {
+        return res.status(400).json({ error: 'User not found' });
+      }
+
+      // Сравниваем введенный пароль с сохраненным хешем
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          return res.status(500).json({ error: 'Error comparing password' });
+        }
+
+        if (!isMatch) {
+          return res.status(400).json({ error: 'Invalid password' });
+        }
+
+        // Если пароль совпадает, отправляем успешный ответ
+        res.status(200).json({ message: 'Login successful', user });
+      });
+    })
+    .catch(err => res.status(500).json({ error: 'Error during login' }));
+});
+
 // Запуск сервера
 app.listen(port, () => {
-  console.log(`Server running on port 5500`);
+  console.log(`Server running on port ${port}`);
 });

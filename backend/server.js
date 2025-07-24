@@ -23,6 +23,12 @@ app.use(express.json());  // Убедись, что этот middleware доба
 // Статичные файлы (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Маршрут для страницы Dashboard
+app.get('/dashboard', (req, res) => {
+  console.log('Запрос на /dashboard');  // Логируем запрос
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
 // Маршрут для получения страницы входа
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html', 'dashboard.html'));

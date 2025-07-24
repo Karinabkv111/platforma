@@ -9,7 +9,7 @@
 <body>
   <div class="form-container">
     <h2>Вход в аккаунт</h2>
-    <form id="loginForm" action="/login" method="POST">
+    <form id="loginForm">
       <!-- Поле для ввода email -->
       <label for="email">Электронная почта:</label>
       <input 
@@ -40,6 +40,40 @@
   </div>
 
   <!-- Подключение скрипта для обработки формы -->
-  <script src="script.js"></script>
+  <script>
+    // Получаем форму для входа
+    const loginForm = document.getElementById('loginForm');
+
+    // Добавляем обработчик события для отправки формы
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // Отменяем стандартное поведение формы (перезагрузку страницы)
+
+      // Получаем данные из полей формы
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Отправляем данные на сервер через fetch
+      fetch('http://localhost:5500/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }), // Отправляем email и пароль
+      })
+      .then(response => response.json())  // Парсим ответ как JSON
+      .then(data => {
+        if (data.message) {
+          alert(data.message);  // Покажет "Login successful" пользователю
+          window.location.href = "/dashboard";  // Перенаправление на другую страницу после входа
+        } else {
+          alert('Ошибка: ' + data.error);  // Покажет ошибку, если вход не удался
+        }
+      })
+      .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Что-то пошло не так!');
+      });
+    });
+  </script>
 </body>
 </html>

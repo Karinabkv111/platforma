@@ -17,11 +17,11 @@ mongoose.connect('mongodb://localhost:27017/myNewDatabase', {
   console.error('Error connecting to MongoDB:', err);
 });
 
+// Middleware для обработки JSON
+app.use(express.json());  // Убедись, что этот middleware добавлен перед маршрутами
+
 // Статичные файлы (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Middleware для обработки JSON
-app.use(express.json());
 
 // Маршрут для получения страницы входа
 app.get('/login', (req, res) => {
@@ -64,6 +64,8 @@ app.post('/register', (req, res) => {
 
 // Маршрут для входа (POST /login)
 app.post('/login', (req, res) => {
+  console.log(req.body);  // Логируем тело запроса для проверки
+
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -87,7 +89,6 @@ app.post('/login', (req, res) => {
           return res.status(400).json({ error: 'Invalid password' });
         }
 
-        // Если пароль совпадает, отправляем успешный ответ
         res.status(200).json({ message: 'Login successful', user });
       });
     })

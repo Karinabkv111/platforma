@@ -1,54 +1,61 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Личный кабинет</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <title>Личный кабинет</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <header>
-    <h1>👩‍🎓 Кабинет Карина</h1>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <nav id="nav">
-      <a href="#" onclick="showSection('schedule')">Расписание</a>
-      <a href="#" onclick="showSection('homework')">Домашка</a>
-      <a href="#" onclick="showSection('materials')">Материалы</a>
-      <a href="#" onclick="showSection('join')">Урок</a>
-      <a href="profile.html">Мой профиль</a>
-    </nav>
-  </header>
+    
+    <header>
+        <div class="header-content">
+            <img id="user-avatar" src="#" alt="Аватар" class="avatar" style="display: none;" />
+            <h1 id="user-name">👩‍🎓 Кабинет Карина</h1>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav id="nav">
+            <a href="#" onclick="showSection('schedule')">Расписание</a>
+            <a href="#" onclick="showSection('homework')">Домашка</a>
+            <a href="#" onclick="showSection('materials')">Материалы</a>
+            <a href="#" onclick="showSection('join')">Урок</a>
+            <a href="profile.html">Мой профиль</a>
+        </nav>
+    </header>
 
-  <div class="content">
-    <section id="schedule" class="active">
-     <h2>📅 Расписание</h2>
-     <div id="calendar"></div>
-     <div id="lesson-details" class="lesson-card" style="display: none;"></div>
-    </section>
+    <div class="content">
+        <section id="schedule" class="active">
+            <h2>📅 Расписание</h2>
+            <div id="calendar"></div>
+            <div id="lesson-details" class="lesson-card" style="display: none;"></div>
+        </section>
 
-    <section id="homework">
-      <h2>📝 Домашние задания</h2>
-      <ul>
-        <li>Сделать конспект по митозу</li>
-        <li>Пройти тест на генетику</li>
-      </ul>
-    </section>
+        <section id="homework">
+            <h2>📝 Домашние задания</h2>
+            <ul>
+                <li>Сделать конспект по митозу</li>
+                <li>Пройти тест на генетику</li>
+            </ul>
+        </section>
 
-    <section id="materials">
-      <h2>📚 Материалы</h2>
-      <ul>
-        <li><a href="#">Презентация: Деление клетки</a></li>
-        <li><a href="#">Видео: ДНК и РНК</a></li>
-      </ul>
-    </section>
+        <section id="materials">
+            <h2>📚 Материалы</h2>
+            <ul>
+                <li><a href="#">Презентация: Деление клетки</a></li>
+                <li><a href="#">Видео: ДНК и РНК</a></li>
+            </ul>
+        </section>
 
-    <section id="join">
-      <h2>🎥 Подключиться на урок</h2>
-      <a href="https://zoom.us" target="_blank" class="btn">Перейти в Zoom</a><br />
-      <a href="index.html" class="btn">← На главную</a>
-    </section>
-  </div>
+        <section id="join">
+            <h2>🎥 Подключиться на урок</h2>
+            <a href="https://zoom.us" target="_blank" class="btn">Перейти в Zoom</a><br />
+            <a href="index.html" class="btn">← На главную</a>
+        </section>
+    </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

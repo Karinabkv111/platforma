@@ -46,6 +46,6 @@ app.post('/register', (req, res) => {
 });
 
 // 4. Запуск сервера
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+app.listen(5500, () => {
+  console.log('Server running on port 5500');
 });

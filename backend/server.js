@@ -1,45 +1,47 @@
 const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-const { MongoClient } = require('mongodb');
-
-const app = express();
-const port = 3000;
-
-// Middleware
-app.use(bodyParser.json());
 
 // Подключение к базе данных MongoDB
-const uri = 'mongodb://127.0.0.1:27017'; // Используем локальное подключение
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/myNewDatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.log(err));
 
-// Подключение к базе данных
-let db;
-client.connect().then(() => {
-  db = client.db('myNewDatabase'); // Выбираем базу данных
-  console.log('Connected to MongoDB');
-}).catch(error => {
-  console.error('Error connecting to MongoDB:', error);
+// Мидлвар для обработки JSON в запросах
+app.use(bodyParser.json());
+
+// Простая страница при GET запросе на /
+app.get('/', (req, res) => {
+  res.send('Welcome to the registration platform!');
 });
 
-// Роут для регистрации
+// Маршрут для регистрации
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
   // Хешируем пароль
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Вставляем пользователя в коллекцию
+  // Создаем нового пользователя
+  const newUser = new User({
+    username,
+    password: hashedPassword
+  });
+
   try {
-    const result = await db.collection('users').insertOne({ username, password: hashedPassword });
-    res.status(201).json({ message: 'User registered', userId: result.insertedId });
-  } catch (error) {
-    console.error('Error during registration:', error);
-    res.status(500).json({ error: 'Failed to register user' });
+    await newUser.save();
+    res.status(201).json({ message: 'User registered successfully!' });
+  } catch (err) {
+    res.status(400).json({ error: 'Error registering user' });
   }
 });
 
 // Запуск сервера
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
 });

@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Личный кабинет</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="dashboard">
-    <h1>Личный кабинет ученика</h1>
-    <p class="welcome">Добро пожаловать, Карина!</p>
+  <header>
+    <h1>👩‍🎓 Кабинет Карина</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="nav">
+      <a href="#" onclick="showSection('schedule')">Расписание</a>
+      <a href="#" onclick="showSection('homework')">Домашка</a>
+      <a href="#" onclick="showSection('materials')">Материалы</a>
+      <a href="#" onclick="showSection('join')">Урок</a>
+    </nav>
+  </header>
 
-    <section>
+  <div class="content">
+    <section id="schedule" class="active">
       <h2>📅 Расписание</h2>
       <ul>
         <li>Пн 18:00 – Генетика</li>
@@ -19,7 +28,7 @@
       </ul>
     </section>
 
-    <section>
+    <section id="homework">
       <h2>📝 Домашние задания</h2>
       <ul>
         <li>Сделать конспект по митозу</li>
@@ -27,7 +36,7 @@
       </ul>
     </section>
 
-    <section>
+    <section id="materials">
       <h2>📚 Материалы</h2>
       <ul>
         <li><a href="#">Презентация: Деление клетки</a></li>
@@ -35,12 +44,13 @@
       </ul>
     </section>
 
-    <section>
+    <section id="join">
       <h2>🎥 Подключиться на урок</h2>
-      <a href="https://zoom.us" target="_blank" class="btn">Перейти в Zoom</a>
+      <a href="https://zoom.us" target="_blank" class="btn">Перейти в Zoom</a><br />
+      <a href="index.html" class="btn">← На главную</a>
     </section>
-
-    <a href="index.html" class="btn">← На главную</a>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
